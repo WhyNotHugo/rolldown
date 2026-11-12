@@ -26,15 +26,6 @@ use std::sync::{
 
 use napi_derive::napi;
 
-#[cfg(all(
-  not(target_family = "wasm"),
-  not(feature = "default_global_allocator"),
-  not(target_env = "ohos"),
-  not(feature = "tracking_allocator")
-))]
-#[global_allocator]
-static ALLOC: mimalloc_safe::MiMalloc = mimalloc_safe::MiMalloc;
-
 // Same mimalloc, wrapped with allocation counters. The counters are read
 // through `getNativeMemoryStats()` in `native_memory.rs`; the cfg there must
 // stay in sync with this one.
